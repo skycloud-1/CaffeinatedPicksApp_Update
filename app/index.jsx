@@ -1,0 +1,373 @@
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, TextInput, RefreshControl, FlatList, Modal } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Video } from 'expo-av';
+
+const Home = () => {
+    const [selectedCategory, setSelectedCategory] = useState('All');
+    const [searchQuery, setSearchQuery] = useState('');
+    const [isSearchActive, setIsSearchActive] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [refreshing, setRefreshing] = useState(false);
+    const [selectedTemperature, setSelectedTemperature] = useState('');
+    const [modalVisible, setModalVisible] = useState(false); 
+
+    const items = [
+      { id: 1, title: 'Espresso', category: 'Coffees', image: require('../assets/images/image1.png'), description: 'A strong, concentrated coffee brewed by forcing hot water through finely ground coffee beans.', sweetnessLevel: 'Low', hotPrice: '₱150', icedPrice: '₱200' },
+      { id: 2, title: 'Latte', category: 'Coffees', image: require('../assets/images/image1.png'), description: 'A coffee drink made with espresso and steamed milk.', sweetnessLevel: 'Medium', hotPrice: '₱200', icedPrice: '₱250' },
+      { id: 3, title: 'Mocha', category: 'Coffees', image: require('../assets/images/image1.png'), description: 'A chocolate-flavored variant of a latte.', sweetnessLevel: 'High', hotPrice: '₱250', icedPrice: '₱300' },
+      { id: 4, title: 'Chocolate Chip', category: 'Pastries', image: require('../assets/images/image1.png'), description: 'A sweet baked dessert with chocolate chips.', sweetnessLevel: 'High', hotPrice: '₱100', icedPrice: '₱150' },
+      { id: 5, title: 'Croissant', category: 'Pastries', image: require('../assets/images/image1.png'), description: 'A buttery, flaky, and soft pastry of French origin.', sweetnessLevel: 'Low', hotPrice: '₱150', icedPrice: '₱200' },
+      { id: 6, title: 'Ham Sandwich', category: 'Sandwiches', image: require('../assets/images/image1.png'), description: 'A sandwich made with ham and various toppings.', sweetnessLevel: 'None', hotPrice: '₱450', icedPrice: '₱500' },
+      { id: 7, title: 'Turkey Sandwich', category: 'Sandwiches', image: require('../assets/images/image1.png'), description: 'A sandwich made with turkey and various toppings.', sweetnessLevel: 'None', hotPrice: '₱450', icedPrice: '₱500' },
+      { id: 8, title: 'Bagel', category: 'Pastries', image: require('../assets/images/image1.png'), description: 'A round bread roll with a dense, chewy texture.', sweetnessLevel: 'Low', hotPrice: '₱100', icedPrice: '₱150' },
+      { id: 9, title: 'Bagel', category: 'Pastries', image: require('../assets/images/image1.png'), description: 'A round bread roll with a dense, chewy texture.', sweetnessLevel: 'Low', hotPrice: '₱100', icedPrice: '₱150' },
+      { id: 10, title: 'Espresso', category: 'Coffees', image: require('../assets/images/image1.png'), description: 'A strong, concentrated coffee brewed by forcing hot water through finely ground coffee beans.', sweetnessLevel: 'Low', hotPrice: '₱150', icedPrice: '₱200' },
+      { id: 11, title: 'Turkey Sandwich', category: 'Sandwiches', image: require('../assets/images/image1.png'), description: 'A sandwich made with turkey and various toppings.', sweetnessLevel: 'None', hotPrice: '₱450', icedPrice: '₱500' },
+      { id: 12, title: 'Turkey Sandwich', category: 'Sandwiches', image: require('../assets/images/image1.png'), description: 'A sandwich made with turkey and various toppings.', sweetnessLevel: 'None', hotPrice: '₱450', icedPrice: '₱500' },
+    ];
+
+    const filteredItems = items.filter(item => {
+        const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
+        const matchesSearchQuery = item.title.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCategory && matchesSearchQuery;
+    });
+
+    const handleSearchIconPress = () => {
+        setIsSearchActive(!isSearchActive);
+    };
+
+    const handleItemPress = (item) => {
+        if (selectedItem && selectedItem.id === item.id) {
+            setSelectedItem(null);
+            setModalVisible(false); 
+        } else {
+            setSelectedItem(item);
+            setModalVisible(true); 
+        }
+    };
+
+    const onRefresh = () => {
+        setRefreshing(true);
+        setTimeout(() => {
+            setRefreshing(false);
+        }, 1000);
+    };
+
+    const handleTemperatureSelect = (type) => {
+        setSelectedTemperature(type === selectedTemperature ? '' : type); 
+    };
+    const categories = ['Coffees', 'Pastries', 'Sandwiches'];
+    return (
+        <View style={styles.container}>
+            <Image source={require('../assets/images/bghome.png')} style={styles.backgroundImage} />
+
+            <View style={styles.header}>
+                <Image source={require('../assets/images/logo1.png')} style={styles.logo} />
+                <View style={styles.searchContainer}>
+                    <TouchableOpacity onPress={handleSearchIconPress} style={styles.searchIcon}>
+                        <Ionicons name="search" size={24} color="#fff" />
+                    </TouchableOpacity>
+                    {isSearchActive && (
+                        <TextInput
+                            style={styles.searchBar}
+                            placeholder="Search..."
+                            placeholderTextColor="#999"
+                            value={searchQuery}
+                            onChangeText={setSearchQuery}
+                        />
+                    )}
+                </View>
+            </View>
+
+            <View style={styles.introSection}>
+                <Text style={styles.headerText}>Let's Brew</Text>
+                <Text style={styles.subHeaderText}>Your Insta-worthy coffee spot with the best vibes.</Text>
+            </View>
+
+            <View style={styles.tabContainer}>
+                {['All', 'Coffees', 'Pastries', 'Sandwiches'].map(category => (
+                    <TouchableOpacity
+                        key={category}
+                        style={[styles.tabButton, selectedCategory === category && styles.activeTabButton]}
+                        onPress={() => setSelectedCategory(category)}
+                    >
+                        <Text style={selectedCategory === category ? styles.activeTabText : styles.tabButtonText}>{category}</Text>
+                    </TouchableOpacity>
+                ))}
+            </View>
+
+            <ScrollView
+                contentContainerStyle={styles.scrollContainer}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+            >
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.mediaContainer}>
+                    <View style={styles.mediaWrapper}>
+                        <Video
+                            source={require('../assets/videos/video.mp4')}
+                            style={styles.video}
+                            shouldPlay
+                            isLooping
+                            resizeMode="cover"
+                        />
+                        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                            {items.slice(0, 3).map(item => (
+                                <Image key={item.id} source={item.image} style={styles.swipeableImage} />
+                            ))}
+                        </ScrollView>
+                    </View>
+                </ScrollView>
+
+                  {/* Render categorized items */}
+                  {categories.map((category) => (
+                    <View key={category}>
+                        <Text style={styles.itemsText}>{category}</Text>
+                        <FlatList
+                            data={filteredItems.filter(item => item.category === category)}
+                            keyExtractor={(item) => item.id.toString()}
+                            numColumns={2}
+                            columnWrapperStyle={{ justifyContent: 'space-between' }}
+                            renderItem={({ item }) => (
+                                <View style={styles.itemCard}>
+                                    <TouchableOpacity onPress={() => handleItemPress(item)}>
+                                        <Image source={item.image} style={styles.cardImage} />
+                                        <View style={styles.cardContent}>
+                                            <Text style={styles.cardCategory}>{item.category.toUpperCase()}</Text>
+                                            <Text style={styles.cardTitle}>{item.title}</Text>
+                                            <View style={styles.cardFooter}>
+                                                <View style={styles.cardTime}>
+                                                    <Ionicons name="time-outline" size={14} color="#888" />
+                                                    <Text style={styles.cardTimeText}>5 mins</Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            )}
+                            ListEmptyComponent={<Text style={styles.noResultsText}>No items found</Text>}
+                            contentContainerStyle={styles.itemList}
+                        />
+                    </View>
+                ))}
+
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                        setModalVisible(!modalVisible);
+                    }}
+                >
+                    <View style={styles.modalContainer}>
+                        <View style={styles.modalContent}>
+                            {selectedItem && (
+                                <>
+                                    <Text style={styles.modalTitle}>{selectedItem.title}</Text>
+                                    
+                                    <Text style={styles.modalDescription}>{selectedItem.description}</Text>
+                                    <Text style={styles.modalSweetness}>Sweetness Level: {selectedItem.sweetnessLevel}</Text>
+                                    <Text style={styles.modalPrice}>Hot Price: {selectedItem.hotPrice}</Text>
+                                    <Text style={styles.modalPrice}>Iced Price: {selectedItem.icedPrice}</Text>
+                                    <TouchableOpacity
+                                        style={styles.closeButton}
+                                        onPress={() => setModalVisible(false)}
+                                    >
+                                        <Text style={styles.closeButtonText}>Close</Text>
+                                    </TouchableOpacity>
+                                </>
+                            )}
+                        </View>
+                    </View>
+                </Modal>
+            </ScrollView>
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    backgroundImage: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        resizeMode: 'cover',
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 20,
+    },
+    logo: {
+        width: 50,
+        height: 50,
+    },
+    searchContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    searchIcon: {
+        marginRight: 10,
+    },
+    searchBar: {
+        backgroundColor: '#fff',
+        borderRadius: 20,
+        paddingVertical: 8,
+        paddingHorizontal: 15,
+        width: 200,
+        color: '#000',
+    },
+    introSection: {
+        paddingHorizontal: 20,
+        paddingBottom: 20,
+    },
+    headerText: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#ffffff',
+        marginBottom: 10,
+        textAlign: 'left',
+    },
+    subHeaderText: {
+        fontSize: 14,
+        color: '#ffffff',
+        marginBottom: 20,
+        textAlign: 'left',
+    },
+    tabContainer: {
+        flexDirection: 'row',
+        marginBottom: 20,
+    },
+    tabButton: {
+        backgroundColor: 'transparent',
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderRadius: 20,
+        marginHorizontal: 5,
+    },
+    tabButtonText: {
+        fontSize: 14,
+        color: '#ffffff',
+    },
+    activeTabButton: {
+        backgroundColor: '#e0a15e',
+    },
+    activeTabText: {
+        fontSize: 14,
+        color: '#000',
+        fontWeight: 'bold',
+    },
+    mediaContainer: {
+        flexDirection: 'row',
+    },
+    mediaWrapper: {
+        flexDirection: 'row',
+        borderRadius: 10,
+        overflow: 'hidden',
+    },
+    video: {
+        width: 318,
+        height: 200,
+        borderRadius: 10,
+    },
+    swipeableImage: {
+        width: 318,
+        height: 200,
+        borderRadius: 10,
+        marginLeft: 20,
+    },
+    itemsText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 30,
+        color: '#fff',
+        marginTop: 30,
+    },
+    scrollContainer: {
+        paddingHorizontal: 20,
+    },
+    itemList: {
+        marginBottom: 100,
+    },
+    itemCard: {
+      width: '45%',
+      marginBottom: 20,
+      borderRadius: 10,
+      overflow: 'hidden',
+      backgroundColor: '#fff',
+      elevation: 2,
+    },
+    cardImage: {
+      width: '100%',
+      height: 100,
+    },
+    cardContent: {
+        padding: 10,
+    },
+    cardCategory: {
+      fontSize: 12,
+      color: '#888',
+    },
+    cardTitle: {
+      fontSize: 16,
+      fontWeight: 'bold',
+    },
+    cardFooter: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    cardTime: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    cardTimeText: {
+     marginLeft: 5,
+        fontSize: 12,
+        color: '#888',
+    },
+    noResultsText: {
+      textAlign: 'center',
+      marginVertical: 20,
+      color: '#888',
+    },
+    modalContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+      backgroundColor: '#fff',
+      padding: 20,
+      borderRadius: 10,
+      width: '80%',
+    },
+    modalTitle: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      marginBottom: 10,
+    },
+    modalDescription: {
+        fontSize: 16,
+        marginBottom: 10,
+    },
+    modalSweetness: {
+      fontSize: 16,
+      marginBottom: 5,
+    },
+    closeButton: {
+      backgroundColor: '#e0a15e',
+      borderRadius: 5,
+      padding: 10,
+      marginTop: 10,
+    },
+    closeButtonText: {
+      color: '#fff',
+      textAlign: 'center',
+    },
+});
+
+export default Home;
