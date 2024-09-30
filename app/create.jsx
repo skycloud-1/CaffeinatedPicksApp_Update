@@ -7,9 +7,9 @@ const Create = () => {
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
   const [rating, setRating] = useState(0);
-  const [image, setImage] = useState(null); // Store selected image
+  const [image, setImage] = useState(null); 
 
-  // Function to pick an image from the library
+
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -19,7 +19,7 @@ const Create = () => {
     });
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri); // Set the selected image URI
+      setImage(result.assets[0].uri); 
     }
   };
 
@@ -28,16 +28,16 @@ const Create = () => {
       const newComment = {
         text: comment,
         rating: rating,
-        image: image, // Add the selected image to the comment
+        image: image, 
       };
       setComments(prevComments => [...prevComments, newComment]);
-      setComment(''); // Clear the input after posting
-      setRating(0); // Reset the rating
-      setImage(null); // Reset the image
+      setComment(''); 
+      setRating(0); 
+      setImage(null); 
     }
   };
 
-  // Sort the comments from highest to lowest rating
+  
   const sortedComments = comments.sort((a, b) => b.rating - a.rating);
 
   const renderStars = (count) => {
@@ -61,7 +61,7 @@ const Create = () => {
       <Text style={styles.heading}>Review Section</Text>
 
       <FlatList
-        data={sortedComments} // Use sorted comments
+        data={sortedComments} 
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <View style={styles.commentBox}>
