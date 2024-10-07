@@ -13,18 +13,18 @@ const Home = () => {
     const [modalVisible, setModalVisible] = useState(false); 
 
     const items = [
-      { id: 1, title: 'Espresso', category: 'Coffees', image: require('../assets/images/image1.png'), description: 'A strong, concentrated coffee brewed by forcing hot water through finely ground coffee beans.', sweetnessLevel: 'Low', hotPrice: '₱150', icedPrice: '₱200' },
-      { id: 2, title: 'Latte', category: 'Coffees', image: require('../assets/images/image1.png'), description: 'A coffee drink made with espresso and steamed milk.', sweetnessLevel: 'Medium', hotPrice: '₱200', icedPrice: '₱250' },
-      { id: 3, title: 'Mocha', category: 'Coffees', image: require('../assets/images/image1.png'), description: 'A chocolate-flavored variant of a latte.', sweetnessLevel: 'High', hotPrice: '₱250', icedPrice: '₱300' },
-      { id: 4, title: 'Chocolate Chip', category: 'Pastries', image: require('../assets/images/image1.png'), description: 'A sweet baked dessert with chocolate chips.', sweetnessLevel: 'High', hotPrice: '₱100', icedPrice: '₱150' },
-      { id: 5, title: 'Croissant', category: 'Pastries', image: require('../assets/images/image1.png'), description: 'A buttery, flaky, and soft pastry of French origin.', sweetnessLevel: 'Low', hotPrice: '₱150', icedPrice: '₱200' },
-      { id: 6, title: 'Ham Sandwich', category: 'Sandwiches', image: require('../assets/images/image1.png'), description: 'A sandwich made with ham and various toppings.', sweetnessLevel: 'None', hotPrice: '₱450', icedPrice: '₱500' },
-      { id: 7, title: 'Turkey Sandwich', category: 'Sandwiches', image: require('../assets/images/image1.png'), description: 'A sandwich made with turkey and various toppings.', sweetnessLevel: 'None', hotPrice: '₱450', icedPrice: '₱500' },
-      { id: 8, title: 'Bagel', category: 'Pastries', image: require('../assets/images/image1.png'), description: 'A round bread roll with a dense, chewy texture.', sweetnessLevel: 'Low', hotPrice: '₱100', icedPrice: '₱150' },
-      { id: 9, title: 'Bagel', category: 'Pastries', image: require('../assets/images/image1.png'), description: 'A round bread roll with a dense, chewy texture.', sweetnessLevel: 'Low', hotPrice: '₱100', icedPrice: '₱150' },
-      { id: 10, title: 'Espresso', category: 'Coffees', image: require('../assets/images/image1.png'), description: 'A strong, concentrated coffee brewed by forcing hot water through finely ground coffee beans.', sweetnessLevel: 'Low', hotPrice: '₱150', icedPrice: '₱200' },
-      { id: 11, title: 'Turkey Sandwich', category: 'Sandwiches', image: require('../assets/images/image1.png'), description: 'A sandwich made with turkey and various toppings.', sweetnessLevel: 'None', hotPrice: '₱450', icedPrice: '₱500' },
-      { id: 12, title: 'Turkey Sandwich', category: 'Sandwiches', image: require('../assets/images/image1.png'), description: 'A sandwich made with turkey and various toppings.', sweetnessLevel: 'None', hotPrice: '₱450', icedPrice: '₱500' },
+      { id: 1, title: 'Espresso', category: 'Coffees', image: require('../assets/images/espresso.png'), description: 'A strong, concentrated coffee brewed by forcing hot water through finely ground coffee beans.', sweetnessLevel: 'Low', hotPrice: '₱150', icedPrice: '₱200' },
+      { id: 2, title: 'Latte', category: 'Coffees', image: require('../assets/images/latte.png'), description: 'A coffee drink made with espresso and steamed milk.', sweetnessLevel: 'Medium', hotPrice: '₱200', icedPrice: '₱250' },
+      { id: 3, title: 'Mocha', category: 'Coffees', image: require('../assets/images/mocha.png'), description: 'A chocolate-flavored variant of a latte.', sweetnessLevel: 'High', hotPrice: '₱250', icedPrice: '₱300' },
+      { id: 4, title: 'Chocolate Chip', category: 'Pastries', image: require('../assets/images/chocolatechip.png'), description: 'A sweet baked dessert with chocolate chips.', sweetnessLevel: 'High', hotPrice: '₱100', icedPrice: '₱150' },
+      { id: 5, title: 'Croissant', category: 'Pastries', image: require('../assets/images/croissant.png'), description: 'A buttery, flaky, and soft pastry of French origin.', sweetnessLevel: 'Low', hotPrice: '₱150', icedPrice: '₱200' },
+      { id: 6, title: 'Ham Sandwich', category: 'Sandwiches', image: require('../assets/images/hamsandwich.png'), description: 'A sandwich made with ham and various toppings.', sweetnessLevel: 'None', hotPrice: '₱450', icedPrice: '₱500' },
+      { id: 7, title: 'Turkey Sandwich', category: 'Sandwiches', image: require('../assets/images/turkeysandwich.png'), description: 'A sandwich made with turkey and various toppings.', sweetnessLevel: 'None', hotPrice: '₱450', icedPrice: '₱500' },
+      { id: 8, title: 'Bagel', category: 'Pastries', image: require('../assets/images/bagel.png'), description: 'A round bread roll with a dense, chewy texture.', sweetnessLevel: 'Low', hotPrice: '₱100', icedPrice: '₱150' },
+      { id: 9,title: 'Blueberry Muffin',category: 'Pastries',image: require('../assets/images/blueberrymuffin.png'),description: 'A soft and fluffy muffin filled with fresh blueberries, perfect for a sweet snack or breakfast.',sweetnessLevel: 'High',hotPrice: '₱120',icedPrice: '₱150' },
+      { id: 10, title: 'Cappuccino',category: 'Coffees', image: require('../assets/images/cappuccino.png'),description: 'A classic coffee drink made with equal parts espresso, steamed milk, and a layer of foamed milk.',sweetnessLevel: 'Medium',hotPrice: '₱180', icedPrice: '₱220' },
+      { id: 11,  title: 'Grilled Cheese Sandwich',category: 'Sandwiches',image: require('../assets/images/grilledcheese.png'),description: 'A classic sandwich made with melted cheese between two slices of perfectly toasted bread.',sweetnessLevel: 'None',icedPrice: '₱250' },
+      { id: 12, title: 'Club Sandwich',category: 'Sandwiches',image: require('../assets/images/clubsandwich.png'),description: 'A multi-layered sandwich with turkey, bacon, lettuce, tomato, and mayonnaise, served on toasted bread.',sweetnessLevel: 'None',hotPrice: '₱500',icedPrice: '₱550'},
     ];
 
     const filteredItems = items.filter(item => {
@@ -136,15 +136,15 @@ const Home = () => {
                                             <Text style={styles.cardTitle}>{item.title}</Text>
                                             <View style={styles.cardFooter}>
                                                 <View style={styles.cardTime}>
-                                                    <Ionicons name="time-outline" size={14} color="#888" />
-                                                    <Text style={styles.cardTimeText}>5 mins</Text>
+                                                    {/* <Ionicons name="time-outline" size={14} color="#888" />
+                                                    <Text style={styles.cardTimeText}>5 mins</Text> */}
                                                 </View>
                                             </View>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
                             )}
-                            ListEmptyComponent={<Text style={styles.noResultsText}>No items found</Text>}
+                            ListEmptyComponent={<Text style={styles.noResultsText}>No item found</Text>}
                             contentContainerStyle={styles.itemList}
                         />
                     </View>
@@ -162,6 +162,7 @@ const Home = () => {
                         <View style={styles.modalContent}>
                             {selectedItem && (
                                 <>
+                                     <Image source={selectedItem.image} style={styles.modalImage} />
                                     <Text style={styles.modalTitle}>{selectedItem.title}</Text>
                                     
                                     <Text style={styles.modalDescription}>{selectedItem.description}</Text>
@@ -281,12 +282,14 @@ const styles = StyleSheet.create({
     itemsText: {
         fontSize: 20,
         fontWeight: 'bold',
-        marginBottom: 30,
+        marginBottom: 10,
         color: '#fff',
-        marginTop: 30,
+        marginTop: 10,
+        
     },
     scrollContainer: {
         paddingHorizontal: 20,
+       
     },
     itemList: {
         marginBottom: 100,
@@ -337,21 +340,28 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      backgroundColor:'rgba(0, 0, 0, 0.5)',
+     
+
     },
     modalContent: {
       backgroundColor: '#fff',
       padding: 20,
       borderRadius: 10,
       width: '80%',
+      borderStyle: 'solid',
+      borderColor: '#000000',
+      borderRadius: 10,
+      borderWidth: 2,
+      
     },
     modalTitle: {
-      fontSize: 24,
+      fontSize: 20,
       fontWeight: 'bold',
       marginBottom: 10,
     },
     modalDescription: {
-        fontSize: 16,
+        fontSize: 14,
         marginBottom: 10,
     },
     modalSweetness: {
@@ -363,11 +373,25 @@ const styles = StyleSheet.create({
       borderRadius: 5,
       padding: 10,
       marginTop: 10,
+      borderStyle: 'solid',
+      borderColor: '#000000',
+      borderRadius: 10,
+      borderWidth: 2,
     },
     closeButtonText: {
       color: '#fff',
       textAlign: 'center',
+
+
     },
+    modalImage: {
+        width: '100%',
+        height: 150,
+        marginBottom: 10,
+        borderRadius: 10,
+        resizeMode: 'cover',
+    },
+    
 });
 
 export default Home;
