@@ -376,7 +376,7 @@ const styles = StyleSheet.create({
       borderStyle: 'solid',
       borderColor: '#000000',
       borderRadius: 10,
-      borderWidth: 2,
+      borderWidth: 1,
     },
     closeButtonText: {
       color: '#fff',
