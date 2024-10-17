@@ -1,80 +1,93 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native';
-import React, { useEffect } from 'react';
-import { icons } from '../assets/icons'; 
+import { View, Pressable, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
-import { Feather } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons';
 
-const TabBarButton = (props) => {
-    const { isFocused, label, routeName, color } = props;
+const TabBarButton = ({ navigation }) => {
+    const [showButtons, setShowButtons] = useState(false);
 
-    const scale = useSharedValue(0);
+    const toggleButtons = () => {
+        setShowButtons(!showButtons);
+    };
 
-    useEffect(() => {
-        scale.value = withSpring(
-            typeof isFocused === 'boolean' ? (isFocused ? 1 : 0) : isFocused,
-            { duration: 350 }
-        );
-    }, [scale, isFocused]);
-
-    const animatedIconStyle = useAnimatedStyle(() => {
-        const scaleValue = interpolate(
-            scale.value,
-            [0, 1],
-            [1, 1.4]
-        );
-        const top = interpolate(
-            scale.value,
-            [0, 1],
-            [0, 8]
-        );
-
+    const buttonStyle = useAnimatedStyle(() => {
         return {
-            transform: [{ scale: scaleValue }],
-            top
+            opacity: withSpring(showButtons ? 1 : 0),
+            transform: [{ translateX: withSpring(showButtons ? 0 : -40) }],
         };
     });
 
-    const animatedTextStyle = useAnimatedStyle(() => {
-        const opacity = interpolate(
-            scale.value,
-            [0, 1],
-            [1, 0]
-        );
-
-        return {
-            opacity
-        };
-    });
-
-   
-    const getIcon = () => {
-        if (routeName === 'Create') {
-            return <Feather name="image" size={24} color={color} />; 
-        }
-        return icons[routeName] ? icons[routeName]({ color }) : null; 
+    const handleNavigation = (screenName) => {
+        navigation.navigate(screenName);
+        setShowButtons(false); 
     };
 
     return (
-        <Pressable {...props} style={styles.container}>
-            <Animated.View style={animatedIconStyle}>
-                {getIcon()}
-            </Animated.View>
-            <Animated.Text style={[{ color, fontSize: 11 }, animatedTextStyle]}>
-                {label}
-            </Animated.Text>
-        </Pressable>
+        <View style={styles.container}>
+            {showButtons && (
+                <View style={styles.additionalButtons}>
+                    <Animated.View style={[styles.extraButton, buttonStyle]}>
+                        <Pressable onPress={() => handleNavigation('index')}>
+                            <Feather name="home" size={24} color="white" />
+                        </Pressable>
+                    </Animated.View>
+                    <Animated.View style={[styles.extraButton, buttonStyle]}>
+                        <Pressable onPress={() => handleNavigation('explore')}>
+                            <Feather name="map-pin" size={24} color="white" />
+                        </Pressable>
+                    </Animated.View>
+                    <Animated.View style={[styles.extraButton, buttonStyle]}>
+                        <Pressable onPress={() => handleNavigation('create')}>
+                            <Feather name="message-circle" size={24} color="white" />
+                        </Pressable>
+                    </Animated.View>
+                </View>
+            )}
+
+            <Pressable onPress={toggleButtons} style={styles.floatingButton}>
+                <Feather name="plus" size={24} color="white" />
+            </Pressable>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        position: 'absolute',
+        bottom: 50,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    floatingButton: {
+        backgroundColor: '#e0a15e',
+        borderRadius: 30,
+        width: 60,
+        height: 60,
         justifyContent: 'center',
         alignItems: 'center',
-        gap: 4,
-        borderRadius: 25, 
-        padding: 10, 
-      
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.3,
+        shadowRadius: 5,
+        marginLeft: 580,
+        marginBottom: -35,
+    },
+    additionalButtons: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        position: 'absolute',
+        right: 80, 
+    },
+    extraButton: {
+        backgroundColor: '#737373',
+        marginHorizontal: 10,
+        borderRadius: 30,
+        width: 50,
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop:48,
     },
 });
 

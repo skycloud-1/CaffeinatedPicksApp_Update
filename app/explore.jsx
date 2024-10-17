@@ -4,9 +4,9 @@ import MapView, { Marker } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import image1 from '../assets/images/image2.png';
-import image2 from '../assets/images/image2.png';
-import image3 from '../assets/images/image2.png';
-import image4 from '../assets/images/image2.png';
+import image2 from '../assets/images/image4.png';
+import image3 from '../assets/images/image5.png';
+import image4 from '../assets/images/image8.png';
 
 const Explore = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -52,7 +52,6 @@ const Explore = () => {
     <View style={styles.container}>
       <Image source={require('../assets/images/bglocation.png')} style={styles.backgroundImage} />
 
-      {/* Animated Map Container */}
       <Animated.View style={[styles.mapContainer, { height: mapHeight }]}>
         <MapView
           style={styles.map}
@@ -70,7 +69,6 @@ const Explore = () => {
           />
         </MapView>
 
-        {/* Clickable Swipe Indicator (Arrow) */}
         <TouchableOpacity style={styles.swipeIndicator} onPress={toggleMapSize}>
           <Icon
             name={isMapExpanded ? "chevron-down-outline" : "chevron-up-outline"}
@@ -80,7 +78,6 @@ const Explore = () => {
         </TouchableOpacity>
       </Animated.View>
 
-      {/* Scrollable Content */}
       <ScrollView
         contentContainerStyle={styles.scrollableContent}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
@@ -107,7 +104,6 @@ const Explore = () => {
             </View>
           </View>
 
-          {/* Opening Hours */}
           <View style={styles.hoursContainer}>
             <View style={styles.hoursSection}>
               <Text style={styles.hoursTitle}>Opening Hours</Text>
@@ -126,13 +122,11 @@ const Explore = () => {
             </View>
           </View>
 
-          {/* Cozy & Chill Section */}
           <View style={styles.cozyChillContainer}>
             <Text style={styles.cozyChillTitle}>Cozy & Chill</Text>
             <Text style={styles.cozyChillDescription}>The perfect spot to unwind, connect and escape</Text>
           </View>
 
-          {/* Image List Section */}
           <View style={styles.imageListContainer}>
             <FlatList
               data={images}

@@ -13,18 +13,24 @@ const Home = () => {
     const [modalVisible, setModalVisible] = useState(false); 
 
     const items = [
-      { id: 1, title: 'Espresso', category: 'Coffees', image: require('../assets/images/espresso.png'), description: 'A strong, concentrated coffee brewed by forcing hot water through finely ground coffee beans.', sweetnessLevel: 'Low', hotPrice: '₱150', icedPrice: '₱200' },
-      { id: 2, title: 'Latte', category: 'Coffees', image: require('../assets/images/latte.png'), description: 'A coffee drink made with espresso and steamed milk.', sweetnessLevel: 'Medium', hotPrice: '₱200', icedPrice: '₱250' },
-      { id: 3, title: 'Mocha', category: 'Coffees', image: require('../assets/images/mocha.png'), description: 'A chocolate-flavored variant of a latte.', sweetnessLevel: 'High', hotPrice: '₱250', icedPrice: '₱300' },
-      { id: 4, title: 'Chocolate Chip', category: 'Pastries', image: require('../assets/images/chocolatechip.png'), description: 'A sweet baked dessert with chocolate chips.', sweetnessLevel: 'High', hotPrice: '₱100', icedPrice: '₱150' },
-      { id: 5, title: 'Croissant', category: 'Pastries', image: require('../assets/images/croissant.png'), description: 'A buttery, flaky, and soft pastry of French origin.', sweetnessLevel: 'Low', hotPrice: '₱150', icedPrice: '₱200' },
-      { id: 6, title: 'Ham Sandwich', category: 'Sandwiches', image: require('../assets/images/hamsandwich.png'), description: 'A sandwich made with ham and various toppings.', sweetnessLevel: 'None', hotPrice: '₱450', icedPrice: '₱500' },
-      { id: 7, title: 'Turkey Sandwich', category: 'Sandwiches', image: require('../assets/images/turkeysandwich.png'), description: 'A sandwich made with turkey and various toppings.', sweetnessLevel: 'None', hotPrice: '₱450', icedPrice: '₱500' },
-      { id: 8, title: 'Bagel', category: 'Pastries', image: require('../assets/images/bagel.png'), description: 'A round bread roll with a dense, chewy texture.', sweetnessLevel: 'Low', hotPrice: '₱100', icedPrice: '₱150' },
-      { id: 9,title: 'Blueberry Muffin',category: 'Pastries',image: require('../assets/images/blueberrymuffin.png'),description: 'A soft and fluffy muffin filled with fresh blueberries, perfect for a sweet snack or breakfast.',sweetnessLevel: 'High',hotPrice: '₱120',icedPrice: '₱150' },
-      { id: 10, title: 'Cappuccino',category: 'Coffees', image: require('../assets/images/cappuccino.png'),description: 'A classic coffee drink made with equal parts espresso, steamed milk, and a layer of foamed milk.',sweetnessLevel: 'Medium',hotPrice: '₱180', icedPrice: '₱220' },
-      { id: 11,  title: 'Grilled Cheese Sandwich',category: 'Sandwiches',image: require('../assets/images/grilledcheese.png'),description: 'A classic sandwich made with melted cheese between two slices of perfectly toasted bread.',sweetnessLevel: 'None',icedPrice: '₱250' },
-      { id: 12, title: 'Club Sandwich',category: 'Sandwiches',image: require('../assets/images/clubsandwich.png'),description: 'A multi-layered sandwich with turkey, bacon, lettuce, tomato, and mayonnaise, served on toasted bread.',sweetnessLevel: 'None',hotPrice: '₱500',icedPrice: '₱550'},
+      { id: 1, title: 'Espresso', category: 'Coffees', image: require('../assets/images/Espresso1.png'), description: 'A strong, concentrated coffee brewed by forcing hot water through finely ground coffee beans.', sweetnessLevel: 'Low', hotPrice: '₱150', icedPrice: '₱200', preparationTime: '5 mins' },
+      { id: 2, title: 'Latte', category: 'Coffees', image: require('../assets/images/latte.png'), description: 'A coffee drink made with espresso and steamed milk.', sweetnessLevel: 'Medium', hotPrice: '₱200', icedPrice: '₱250', preparationTime: '7 mins' },
+      { id: 3, title: 'Mocha', category: 'Coffees', image: require('../assets/images/mocha.png'), description: 'A chocolate-flavored variant of a latte.', sweetnessLevel: 'High', hotPrice: '₱250', icedPrice: '₱300', preparationTime: '8 mins' },
+      { id: 13, title: 'Americano', category: 'Coffees', image: require('../assets/images/americano.png'), description: 'A coffee drink made by diluting an espresso with hot water.', sweetnessLevel: 'Low', hotPrice: '₱180', icedPrice: '₱220', preparationTime: '5 mins' },
+      { id: 14, title: 'Macchiato', category: 'Coffees', image: require('../assets/images/macchiato.png'), description: 'An espresso coffee drink with a small amount of milk, usually foamed.', sweetnessLevel: 'Medium', hotPrice: '₱200', icedPrice: '₱250', preparationTime: '6 mins' },
+      { id: 19, title: 'Flat White', category: 'Coffees', image: require('../assets/images/Flatwhite.png'), description: 'A coffee drink consisting of espresso with microfoam.', sweetnessLevel: 'Medium', hotPrice: '₱220', icedPrice: '₱270', preparationTime: '7 mins' },
+      { id: 4, title: 'Chocolate Chip', category: 'Pastries', image: require('../assets/images/chocolatechip.png'), description: 'A sweet baked dessert with chocolate chips.', sweetnessLevel: 'High', price: '₱100', preparationTime: '10 mins' },
+      { id: 5, title: 'Croissant', category: 'Pastries', image: require('../assets/images/croissant.png'), description: 'A buttery, flaky, and soft pastry of French origin.', sweetnessLevel: 'Low', price: '₱150', preparationTime: '12 mins' },
+      { id: 8, title: 'Bagel', category: 'Pastries', image: require('../assets/images/bagel.png'), description: 'A round bread roll with a dense, chewy texture.', sweetnessLevel: 'Low', price: '₱100', preparationTime: '8 mins' },
+      { id: 9, title: 'Blueberry Muffin', category: 'Pastries', image: require('../assets/images/blueberrymuffin.png'), description: 'A soft and fluffy muffin filled with fresh blueberries, perfect for a sweet snack or breakfast.', sweetnessLevel: 'High', price: '₱120', preparationTime: '10 mins' },
+      { id: 15, title: 'Cinnamon Roll', category: 'Pastries', image: require('../assets/images/cinnamonroll.png'), description: 'A sweet roll with a cinnamon-sugar filling.', sweetnessLevel: 'High', price: '₱120', preparationTime: '15 mins' },
+      { id: 16, title: 'Danish Pastry', category: 'Pastries', image: require('../assets/images/danish.png'), description: 'A multi-layered, laminated sweet pastry.', sweetnessLevel: 'Medium', price: '₱150', preparationTime: '12 mins' },
+      { id: 6, title: 'Ham Sandwich', category: 'Sandwiches', image: require('../assets/images/hamsandwich.png'), description: 'A sandwich made with ham and various toppings.', sweetnessLevel: 'None', price: '₱450', preparationTime: '10 mins' },
+      { id: 7, title: 'Turkey Sandwich', category: 'Sandwiches', image: require('../assets/images/turkeysandwich.png'), description: 'A sandwich made with turkey and various toppings.', sweetnessLevel: 'None', price: '₱450', preparationTime: '10 mins' },
+      { id: 11, title: 'Grilled Cheese Sandwich', category: 'Sandwiches', image: require('../assets/images/grilledcheese.png'), description: 'A classic sandwich made with melted cheese between two slices of perfectly toasted bread.', sweetnessLevel: 'None', price: '₱250', preparationTime: '8 mins' },
+      { id: 12, title: 'Club Sandwich', category: 'Sandwiches', image: require('../assets/images/clubsandwich.png'), description: 'A multi-layered sandwich with turkey, bacon, lettuce, tomato, and mayonnaise, served on toasted bread.', sweetnessLevel: 'None', price: '₱500', preparationTime: '12 mins' },
+      { id: 17, title: 'BLT Sandwich', category: 'Sandwiches', image: require('../assets/images/bltsandwhich.png'), description: 'A sandwich made with bacon, lettuce, and tomato.', sweetnessLevel: 'None', price: '₱400', preparationTime: '10 mins' },
+      { id: 18, title: 'Veggie Sandwich', category: 'Sandwiches', image: require('../assets/images/veggiesandwhich.png'), description: 'A sandwich made with various vegetables and toppings.', sweetnessLevel: 'None', price: '₱350', preparationTime: '10 mins' },
     ];
 
     const filteredItems = items.filter(item => {
@@ -134,11 +140,9 @@ const Home = () => {
                                         <View style={styles.cardContent}>
                                             <Text style={styles.cardCategory}>{item.category.toUpperCase()}</Text>
                                             <Text style={styles.cardTitle}>{item.title}</Text>
-                                            <View style={styles.cardFooter}>
-                                                <View style={styles.cardTime}>
-                                                    {/* <Ionicons name="time-outline" size={14} color="#888" />
-                                                    <Text style={styles.cardTimeText}>5 mins</Text> */}
-                                                </View>
+                                            <View style={styles.cardTime}>
+                                                <Ionicons name="time-outline" size={14} color="#888" />
+                                                <Text style={styles.cardTimeText}>{item.preparationTime}</Text>
                                             </View>
                                         </View>
                                     </TouchableOpacity>
@@ -167,8 +171,14 @@ const Home = () => {
                                     
                                     <Text style={styles.modalDescription}>{selectedItem.description}</Text>
                                     <Text style={styles.modalSweetness}>Sweetness Level: {selectedItem.sweetnessLevel}</Text>
-                                    <Text style={styles.modalPrice}>Hot Price: {selectedItem.hotPrice}</Text>
-                                    <Text style={styles.modalPrice}>Iced Price: {selectedItem.icedPrice}</Text>
+                                    {selectedItem.price ? (
+                                        <Text style={styles.modalPrice}>Price: {selectedItem.price}</Text>
+                                    ) : (
+                                        <>
+                                            <Text style={styles.modalPrice}>Hot Price: {selectedItem.hotPrice}</Text>
+                                            <Text style={styles.modalPrice}>Iced Price: {selectedItem.icedPrice}</Text>
+                                        </>
+                                    )}
                                     <TouchableOpacity
                                         style={styles.closeButton}
                                         onPress={() => setModalVisible(false)}
@@ -325,9 +335,10 @@ const styles = StyleSheet.create({
     cardTime: {
         flexDirection: 'row',
         alignItems: 'center',
+        marginTop: 5,
     },
     cardTimeText: {
-     marginLeft: 5,
+        marginLeft: 5,
         fontSize: 12,
         color: '#888',
     },

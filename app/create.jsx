@@ -88,11 +88,10 @@ const Create = () => {
 
   return (
     <View style={styles.container}>
-      {/* Fixed Section */}
+  
       <View style={styles.fixedHeader}>
         <Text style={styles.heading}>Review Section</Text>
 
-        {/* Category Selector */}
         <View style={styles.categoryContainer}>
           <Text style={styles.categoryTitle}>Select a Category:</Text>
           <View style={styles.categories}>
@@ -113,15 +112,14 @@ const Create = () => {
         </View>
       </View>
 
-      {/* Scrollable Section */}
+
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        {/* Rating Stars */}
+
         <View style={styles.ratingContainer}>
           <Text style={styles.ratingText}>Rate the product:</Text>
           <View style={styles.stars}>{renderStars(rating)}</View>
         </View>
 
-        {/* Comment Section */}
         <View style={styles.commentSection}>
           <TextInput
             style={styles.input}
@@ -135,18 +133,16 @@ const Create = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Post Review button */}
         <TouchableOpacity onPress={handlePostComment} style={styles.postButton}>
           <Text style={styles.postButtonText}>Post Review</Text>
         </TouchableOpacity>
 
-        {/* Comments List */}
         <FlatList
           data={sortedComments}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => (
             <View style={styles.commentBox}>
-              {/* Comment Header with category and delete button */}
+      
               <View style={styles.commentHeader}>
                 <Text style={styles.category}>Category: {item.category}</Text>
                 <TouchableOpacity onPress={() => handleDeleteComment(index)} style={styles.deleteButton}>
@@ -164,7 +160,7 @@ const Create = () => {
                 ))}
               </View>
               <Text style={styles.commentText}>{item.text}</Text>
-              {/* Image display inside the comment box */}
+       
               {item.image && <Image source={{ uri: item.image }} style={styles.commentImage} />}
               <Text style={styles.commentDate}>Posted on: {item.date}</Text>
             </View>
@@ -189,7 +185,7 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#F0A500', 
+    color: '#ffff', 
   },
   categoryContainer: {
     marginBottom: 10,
@@ -211,7 +207,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   selectedCategory: {
-    backgroundColor: '#F0A500',
+    backgroundColor: '#e0a15e',
   },
   categoryText: {
     color: '#aaa',
